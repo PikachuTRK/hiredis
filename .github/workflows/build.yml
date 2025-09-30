@@ -22,8 +22,16 @@ jobs:
           CXXFLAGS: -Werror
         run: mkdir build && cd build && cmake .. && make
 
+      - name: Upload Cmake build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: cmake-build-output
+          path: ${{ github.workspace }}/build
+ 
+
       - name: Build using makefile
         run: USE_SSL=1 TEST_ASYNC=1 make
+
 
       - name: Run tests
         env:
@@ -31,6 +39,11 @@ jobs:
           TEST_SSL: 1
         run: $GITHUB_WORKSPACE/test.sh
 
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-build-output
+          path: ${{ github.workspace }}
       #      - name: Run tests under valgrind
       #        env:
       #          SKIPS_AS_FAILS: 1
@@ -57,3 +70,8 @@ jobs:
           mkdir build && cd build
           cmake -DENABLE_SSL=ON -DENABLE_SSL_TESTS=ON -DENABLE_ASYNC_TESTS=ON -DENABLE_EXAMPLES=ON ..
           make
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: cmake-version-output
+          path: ${{ github.workspace }}/build
