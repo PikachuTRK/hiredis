@@ -23,7 +23,7 @@ jobs:
         run: mkdir build && cd build && cmake .. && make
 
       - name: Upload Cmake build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cmake-build-output
           path: ${{ github.workspace }}/build
@@ -40,7 +40,7 @@ jobs:
         run: $GITHUB_WORKSPACE/test.sh
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-build-output
           path: ${{ github.workspace }}
@@ -71,7 +71,7 @@ jobs:
           cmake -DENABLE_SSL=ON -DENABLE_SSL_TESTS=ON -DENABLE_ASYNC_TESTS=ON -DENABLE_EXAMPLES=ON ..
           make
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cmake-version-output
           path: ${{ github.workspace }}/build
